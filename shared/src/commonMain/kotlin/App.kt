@@ -49,18 +49,15 @@ fun App() {
                 .background(Theme.colors.background)
         ){
             Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-                Button(onClick = {
-                    greetingText = "Hello, ${getPlatformName()}"
-                    showImage = !showImage
-                }) {
-                    Text(greetingText)
-                }
 
                 THButton(
-                    title = "Button Button ",
+                    title = greetingText,
                     enabled = true,
-                    onClick = { },
-                    modifier = Modifier.fillMaxWidth().padding(top = 32.dp )
+                    onClick = {
+                        greetingText = "Hello, ${getPlatformName()}"
+                        showImage = !showImage
+                    },
+                    modifier = Modifier.padding(top = 32.dp )
                 )
                 Spacer(modifier = Modifier.size(30.dp))
                 ThOutlinedButton(

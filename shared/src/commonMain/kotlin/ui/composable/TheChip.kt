@@ -28,15 +28,15 @@ fun TheChip(
     painter: ImageVector? = null
 ) {
     val containerColor by animateColorAsState(
-        targetValue = if (isSelected) Theme.colors.primary else Color.Transparent
+        targetValue = if (isSelected) Theme.colors.primary else Theme.colors.divider
     )
     val labelColor by animateColorAsState(
         targetValue = if (isSelected) Theme.colors.onPrimary
-        else Theme.colors.contentSecondary
+        else Theme.colors.onPrimary
     )
     val iconColor by animateColorAsState(
         targetValue = if (isSelected) Theme.colors.onPrimary
-        else Theme.colors.contentSecondary
+        else Theme.colors.secondary
     )
     AssistChip(
         modifier = modifier.height(32.dp),
