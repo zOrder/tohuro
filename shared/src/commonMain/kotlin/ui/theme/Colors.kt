@@ -21,14 +21,11 @@ data class Colors(
     val warningContainer: Color,
     val surfaceTint: Color,
     val orange: Color,
-    val pink: Color,
-    val blue: Color,
-    val green: Color,
 )
 
 val LightColors = Colors(
-    primary = Color(0xFFFE5915), //
-    secondary = Color(0xFF55ABD8),//
+    primary = Color(0xFFFE5915), //orange
+    secondary = Color(0xFF55ABD8),//blue
     contentPrimary = Color(0xDE1F0000),
     contentSecondary = Color(0x991F0000),
     contentTertiary = Color(0x611F0000),
@@ -36,18 +33,15 @@ val LightColors = Colors(
     surface = Color(0xFFFFFFFF),
     onPrimary = Color(0xFFFFFFFF),
     hover = Color(0xFFFFFAFA),
-    background = Color(0xFFB1ADAC), //
-    disable = Color(0x401F0000),
-    divider = Color(0x141F0000),
+    background = Color(0xFFB1ADAC), //grey
+    disable = Color(0xFFEE3067),//pink
+    divider = Color(0xFF717171),//grey
     success = Color(0xFF41BE88),
     successContainer = Color(0xFFF0FFF7),
     warning = Color(0xFFF2BD00),
     warningContainer = Color(0xFFFFFCEB),
     surfaceTint = Color(0x081F0000),
     orange  = Color(0xFFFFE8CC),
-    pink = Color(0xFFFFD0CC),
-    blue = Color(0xFFC6E1F7),
-    green = Color(0xFFECF6C4),
 )
 
 val DarkColors = Colors(
@@ -69,9 +63,6 @@ val DarkColors = Colors(
     warningContainer = Color(0x14FFFCEB),
     surfaceTint = Color(0x081F0000),
     orange  = Color(0xFF26231F),
-    pink = Color(0xFF261F1F),
-    blue = Color(0xFF1F2326),
-    green = Color(0xFF25261E),
 )
 
 

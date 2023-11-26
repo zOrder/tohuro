@@ -1,8 +1,10 @@
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -21,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 import ui.composable.THButton
+import ui.composable.ThCheckBox
 import ui.composable.ThOutlinedButton
 import ui.theme.Theme
 import ui.theme.TohuruTheme
@@ -31,31 +34,46 @@ fun App() {
     TohuruTheme {
         var greetingText by remember { mutableStateOf("Hello, World!") }
         var showImage by remember { mutableStateOf(false) }
-        Column(Modifier.background(Theme.colors.background).fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-            Button(onClick = {
-                greetingText = "Hello, ${getPlatformName()}"
-                showImage = !showImage
-            }) {
-                Text(greetingText)
-            }
 
-            THButton(
-                title = "Button Button ",
-                enabled = true,
-                onClick = { },
-                modifier = Modifier.fillMaxWidth().padding(top = 32.dp )
-            )
-            Spacer(modifier = Modifier.size(30.dp))
-            ThOutlinedButton(
-                title = "Outline",
-                onClick = { },
-            )
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Theme.colors.background)
+        ){
+            Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+                Button(onClick = {
+                    greetingText = "Hello, ${getPlatformName()}"
+                    showImage = !showImage
+                }) {
+                    Text(greetingText)
+                }
 
-            AnimatedVisibility(showImage) {
-                Image(
-                    painterResource("compose-multiplatform.xml"),
-                    null
+                THButton(
+                    title = "Button Button ",
+                    enabled = true,
+                    onClick = { },
+                    modifier = Modifier.fillMaxWidth().padding(top = 32.dp )
                 )
+                Spacer(modifier = Modifier.size(30.dp))
+                ThOutlinedButton(
+                    title = "Outline",
+                    onClick = { },
+                )
+                Spacer(modifier = Modifier.size(30.dp))
+
+                var checked by remember { mutableStateOf(false) }
+                ThCheckBox(
+                    label = "check",
+                    isChecked = checked,
+                    onCheck = { isChecked -> checked = isChecked  },
+                )
+
+                AnimatedVisibility(showImage) {
+                    Image(
+                        painterResource("compose-multiplatform.xml"),
+                        null
+                    )
+                }
             }
         }
     }
