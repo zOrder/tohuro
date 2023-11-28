@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.Check
@@ -20,6 +22,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 //import androidx.compose.material.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -27,6 +30,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import dev.gitlive.firebase.Firebase
+import dev.gitlive.firebase.firestore.firestore
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 import ui.composable.THButton
@@ -35,6 +40,7 @@ import ui.composable.ThOutlinedButton
 import ui.composable.TheChip
 import ui.theme.Theme
 import ui.theme.TohuruTheme
+import user.User
 
 @OptIn(ExperimentalResourceApi::class, ExperimentalMaterial3Api::class)
 @Composable
@@ -48,6 +54,19 @@ fun App() {
                 .fillMaxSize()
                 .background(Theme.colors.background)
         ){
+
+            Column(Modifier.fillMaxWidth()) {
+                var list by remember { mutableStateOf(listOf<User>()) }
+                LaunchedEffect(Unit) {
+                    list = getUsers()
+                }
+                LazyColumn {
+                    items(list) {
+                        UserItem(it)
+                    }
+                }
+            }
+
             Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
 
                 THButton(
@@ -115,3 +134,27 @@ fun App() {
 }
 
 expect fun getPlatformName(): String
+
+@Composable
+fun UserItem(user: User) {
+    Column {
+        Text(
+            text = user.name
+        )
+        Text(
+            text = user.age.toString()
+        )
+    }
+}
+suspend fun getUsers(): List<User> {
+    val firebaseFirestore = Firebase.firestore
+    try {
+        val userResponse =
+            firebaseFirestore.collection("USERS").get()
+        return userResponse.documents.map {
+            it.data()
+        }
+    } catch (e: Exception) {
+        throw e
+    }
+}
