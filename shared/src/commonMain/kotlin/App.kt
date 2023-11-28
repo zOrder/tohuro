@@ -16,9 +16,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 //import androidx.compose.material.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -38,6 +40,8 @@ import ui.composable.THButton
 import ui.composable.ThCheckBox
 import ui.composable.ThOutlinedButton
 import ui.composable.TheChip
+import ui.composable.TheNavigationBar
+import ui.composable.TheNavigationBarItem
 import ui.theme.Theme
 import ui.theme.TohuruTheme
 import user.User
@@ -49,12 +53,12 @@ fun App() {
         var greetingText by remember { mutableStateOf("Hello, World!") }
         var showImage by remember { mutableStateOf(false) }
 
-        Box(
+        Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Theme.colors.background)
+                .background(Theme.colors.background),
+            verticalArrangement = Arrangement.Bottom
         ){
-
             Column(Modifier.fillMaxWidth()) {
                 var list by remember { mutableStateOf(listOf<User>()) }
                 LaunchedEffect(Unit) {
@@ -68,7 +72,6 @@ fun App() {
             }
 
             Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-
                 THButton(
                     title = greetingText,
                     enabled = true,
@@ -129,6 +132,8 @@ fun App() {
                     )
                 }
             }
+
+            BottomNavigationBarPreview()
         }
     }
 }
@@ -156,5 +161,26 @@ suspend fun getUsers(): List<User> {
         }
     } catch (e: Exception) {
         throw e
+    }
+}
+
+@Composable
+fun BottomNavigationBarPreview() {
+    var selectedItem by remember { mutableStateOf(0) }
+    val items = listOf("one", "two", "three", "four")
+
+    TheNavigationBar  {
+        items.forEachIndexed { index, item ->
+            TheNavigationBarItem(
+                icon = { tint ->
+                    Icon(Icons.Filled.Favorite, contentDescription = item, tint = tint)
+                },
+                label = { style ->
+                    Text(item, style = style)
+                },
+                selected = selectedItem == index,
+                onClick = { selectedItem = index }
+            )
+        }
     }
 }

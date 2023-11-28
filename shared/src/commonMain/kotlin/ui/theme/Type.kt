@@ -62,8 +62,8 @@ fun body(): TextStyle {
 @Composable
 fun caption(): TextStyle {
     return TextStyle(
+        fontSize = 24.sp,
         fontFamily = FontFamily(fontResources("roboto_regular")),
         fontWeight = FontWeight.W400,
-        fontSize = 48.sp,
     )
 }
