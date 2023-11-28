@@ -2,6 +2,12 @@ package ui.composable
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.FastOutLinearInEasing
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.keyframes
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -28,6 +34,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import ui.theme.Theme
+import ui.theme.Theme.speed
 
 @Composable
 fun TheNavigationBar(
@@ -73,6 +80,7 @@ fun RowScope.TheNavigationBarItem(
     val styledIcon = @Composable {
         val iconColor by animateColorAsState(
             if (selected) Theme.colors.primary else Theme.colors.contentTertiary,
+            animationSpec = tween(speed.fast)
         )
         icon(iconColor)
     }
@@ -80,6 +88,7 @@ fun RowScope.TheNavigationBarItem(
     val styledLabel = @Composable {
         val textColor by animateColorAsState(
             if (selected) Theme.colors.primary else Theme.colors.contentTertiary,
+            animationSpec = tween(speed.fast)
         )
         val style =
             Theme.typography.caption.copy(color = textColor)
@@ -101,10 +110,13 @@ fun RowScope.TheNavigationBarItem(
         Column(
             modifier = modifier.align(Alignment.Center),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(4.dp)
+            verticalArrangement = Arrangement.spacedBy(Theme.dimens.space4)
         ) {
             styledIcon()
-            AnimatedVisibility((selected && label != null)) {
+            val speed = Theme.speed.slow
+            AnimatedVisibility(
+                (selected && label != null),
+            ) {
                 styledLabel()
             }
         }

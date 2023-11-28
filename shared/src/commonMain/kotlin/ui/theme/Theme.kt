@@ -10,6 +10,7 @@ private val localDimens = staticCompositionLocalOf { Dimensions() }
 private val localColorScheme = staticCompositionLocalOf { LightColors }
 private val localRadius = staticCompositionLocalOf { Radius() }
 private val localTypography = staticCompositionLocalOf { Typography() }
+private val localSpeed = staticCompositionLocalOf { Speed() }
 @Composable
 fun TohuruTheme(
     useDarkTheme: Boolean = isSystemInDarkTheme(),
@@ -31,6 +32,7 @@ fun TohuruTheme(
         localTypography provides typography,
         localDimens provides Dimensions(),
         localRadius provides Radius(),
+        localSpeed provides Speed(),
     ) {
         content()
     }
@@ -56,4 +58,9 @@ object Theme {
         @Composable
         @ReadOnlyComposable
         get() = localDimens.current
+
+    val speed: Speed
+        @Composable
+        @ReadOnlyComposable
+        get() = localSpeed.current
 }

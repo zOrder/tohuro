@@ -2,7 +2,6 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,11 +13,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Star
-import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 //import androidx.compose.material.MaterialTheme
@@ -37,11 +34,13 @@ import dev.gitlive.firebase.firestore.firestore
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 import ui.composable.THButton
-import ui.composable.ThCheckBox
+import ui.composable.TheCheckBox
 import ui.composable.ThOutlinedButton
 import ui.composable.TheChip
 import ui.composable.TheNavigationBar
 import ui.composable.TheNavigationBarItem
+import ui.composable.TheSnackBar
+import ui.composable.TheSwitchButton
 import ui.theme.Theme
 import ui.theme.TohuruTheme
 import user.User
@@ -52,6 +51,7 @@ fun App() {
     TohuruTheme {
         var greetingText by remember { mutableStateOf("Hello, World!") }
         var showImage by remember { mutableStateOf(false) }
+        var showSnackbar by remember { mutableStateOf(false) }
 
         Column(
             modifier = Modifier
@@ -84,16 +84,30 @@ fun App() {
                 Spacer(modifier = Modifier.size(30.dp))
                 ThOutlinedButton(
                     title = "Outline",
-                    onClick = { },
+                    onClick = {
+                        showSnackbar = !showSnackbar
+                    },
                 )
                 Spacer(modifier = Modifier.size(30.dp))
 
-                var checked by remember { mutableStateOf(false) }
-                ThCheckBox(
-                    label = "check",
-                    isChecked = checked,
-                    onCheck = { isChecked -> checked = isChecked  },
-                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceEvenly)
+                {
+                    var checked by remember { mutableStateOf(false) }
+                    var selected by remember { mutableStateOf(false) }
+                    TheCheckBox(
+                        label = "check",
+                        isChecked = checked,
+                        onCheck = { isChecked -> checked = isChecked  },
+                    )
+
+                    TheSwitchButton(
+                        onSwitch = {isChecked -> selected = isChecked},
+                        selected = selected,
+                    )
+                }
 
                 Spacer(modifier = Modifier.size(30.dp))
 
@@ -134,6 +148,21 @@ fun App() {
             }
 
             BottomNavigationBarPreview()
+
+
+            TheSnackBar(
+                icon = Icons.Default.Star,
+                iconBackgroundColor = Theme.colors.warningContainer,
+                iconTint = Theme.colors.warning,
+                isVisible = showSnackbar,
+//                modifier = Modifier.padding(bottom = getNavigationBarPadding().calculateBottomPadding())
+//                    .align(Alignment.BottomCenter)
+            ) {
+                Text(
+                    text = "AHOI",
+                    style = Theme.typography.body.copy(color = Theme.colors.contentPrimary),
+                )
+            }
         }
     }
 }
@@ -163,6 +192,7 @@ suspend fun getUsers(): List<User> {
         throw e
     }
 }
+
 
 @Composable
 fun BottomNavigationBarPreview() {

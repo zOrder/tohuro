@@ -32,7 +32,7 @@ import ui.theme.Theme.colors
 import ui.theme.Theme.radius
 
 @Composable
-fun ThCheckBox(
+fun TheCheckBox(
     label: String,
     onCheck: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
@@ -45,7 +45,7 @@ fun ThCheckBox(
     ) {
     val checkboxColor: Color by animateColorAsState(
         targetValue = if (isChecked) colors.primary else Color.Transparent,
-        animationSpec = tween(300)
+        animationSpec = tween(Theme.speed.fast)
     )
     val density = LocalDensity.current
 
@@ -69,12 +69,12 @@ fun ThCheckBox(
             androidx.compose.animation.AnimatedVisibility(
                 visible = isChecked,
                 enter = slideInHorizontally(
-                    animationSpec = tween(200)
+                    animationSpec = tween(Theme.speed.fast)
                 ) {
                     with(density) { (24f * -0.5).dp.roundToPx() }
                 } + expandHorizontally(
                     expandFrom = Alignment.Start,
-                    animationSpec = tween(200)
+                    animationSpec = tween(Theme.speed.fast)
                 ),
                 exit = fadeOut()
             ) {

@@ -28,7 +28,7 @@ fun ThThreeDotLoadingIndicator(
     dotSize: Dp = 12.dp,
     dotPadding: Dp = 2.dp,
     dotColor: Color = Theme.colors.onPrimary,
-    animationDelay: Int = 600,
+    animationDelay: Int = Theme.speed.slow ,
     initialAlpha: Float = 0.38f,
 ) {
 
