@@ -30,6 +30,11 @@ kotlin {
                 implementation("dev.gitlive:firebase-firestore:1.8.1")
                 implementation("dev.gitlive:firebase-common:1.8.1")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
+
+                //navigation
+                implementation(libs.voyager.navigator)
+                implementation(libs.voyager.transitions)
+                implementation(libs.voyager.koin)
             }
         }
         val androidMain by getting {
