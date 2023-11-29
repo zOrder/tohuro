@@ -1,4 +1,4 @@
-package ui.composable
+package com.zorder.tohuro.ui.composable
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.animateColorAsState
@@ -17,7 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
-import ui.theme.Theme
+import com.zorder.tohuro.ui.theme.Theme
 
 
 @ExperimentalMaterial3Api

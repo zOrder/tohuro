@@ -1,4 +1,4 @@
-package ui.composable
+package com.zorder.tohuro.ui.composable
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
@@ -17,7 +17,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
-import ui.theme.Theme
+import com.zorder.tohuro.ui.theme.Theme
 
 
 @Composable

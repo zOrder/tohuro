@@ -34,18 +34,18 @@ import dev.gitlive.firebase.Firebase
 import dev.gitlive.firebase.firestore.firestore
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
-import ui.composable.BpAppBar
-import ui.composable.THButton
-import ui.composable.TheCheckBox
-import ui.composable.ThOutlinedButton
-import ui.composable.TheChip
-import ui.composable.TheNavigationBar
-import ui.composable.TheNavigationBarItem
-import ui.composable.TheSnackBar
-import ui.composable.TheSwitchButton
-import ui.theme.Theme
-import ui.theme.TohuruTheme
-import user.User
+import com.zorder.tohuro.ui.composable.BpAppBar
+import com.zorder.tohuro.ui.composable.THButton
+import com.zorder.tohuro.ui.composable.TheCheckBox
+import com.zorder.tohuro.ui.composable.ThOutlinedButton
+import com.zorder.tohuro.ui.composable.TheChip
+import com.zorder.tohuro.ui.composable.TheNavigationBar
+import com.zorder.tohuro.ui.composable.TheNavigationBarItem
+import com.zorder.tohuro.ui.composable.TheSnackBar
+import com.zorder.tohuro.ui.composable.TheSwitchButton
+import com.zorder.tohuro.ui.theme.Theme
+import com.zorder.tohuro.ui.theme.TohuruTheme
+import com.zorder.tohuro.user.User
 
 @OptIn(ExperimentalResourceApi::class, ExperimentalMaterial3Api::class)
 @Composable

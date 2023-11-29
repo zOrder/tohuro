@@ -1,4 +1,4 @@
-package ui.composable
+package com.zorder.tohuro.ui.composable
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
@@ -27,9 +27,9 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import ui.theme.Theme
-import ui.theme.Theme.colors
-import ui.theme.Theme.radius
+import com.zorder.tohuro.ui.theme.Theme
+import com.zorder.tohuro.ui.theme.Theme.colors
+import com.zorder.tohuro.ui.theme.Theme.radius
 
 @Composable
 fun TheCheckBox(

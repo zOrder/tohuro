@@ -1,4 +1,4 @@
-package ui.theme
+package com.zorder.tohuro.ui.theme
 
 data class Speed(
     val fast: Int = 250,

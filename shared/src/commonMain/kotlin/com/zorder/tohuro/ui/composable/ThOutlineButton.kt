@@ -1,4 +1,4 @@
-package ui.composable
+package com.zorder.tohuro.ui.composable
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.BorderStroke
@@ -21,7 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import ui.theme.Theme
+import com.zorder.tohuro.ui.theme.Theme
 
 
 @OptIn(ExperimentalMaterial3Api::class)

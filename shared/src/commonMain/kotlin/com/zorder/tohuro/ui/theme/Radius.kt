@@ -1,4 +1,4 @@
-package ui.theme
+package com.zorder.tohuro.ui.theme
 
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp

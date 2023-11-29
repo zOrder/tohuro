@@ -1,4 +1,4 @@
-package user
+package com.zorder.tohuro.user
 
 import kotlinx.serialization.Serializable
 

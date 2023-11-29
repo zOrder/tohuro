@@ -1,4 +1,4 @@
-package ui.composable
+package com.zorder.tohuro.ui.composable
 
 
 import androidx.compose.animation.animateColorAsState
@@ -23,10 +23,10 @@ import androidx.compose.ui.BiasAlignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import ui.theme.Theme.colors
-import ui.theme.Theme.dimens
-import ui.theme.Theme.radius
-import ui.theme.Theme.speed
+import com.zorder.tohuro.ui.theme.Theme.colors
+import com.zorder.tohuro.ui.theme.Theme.dimens
+import com.zorder.tohuro.ui.theme.Theme.radius
+import com.zorder.tohuro.ui.theme.Theme.speed
 
 
 @Composable

@@ -1,6 +1,6 @@
-package ui.composable
+package com.zorder.tohuro.ui.composable
 
-import ui.theme.Theme
+import com.zorder.tohuro.ui.theme.Theme
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.infiniteRepeatable
@@ -28,7 +28,7 @@ fun ThThreeDotLoadingIndicator(
     dotSize: Dp = 12.dp,
     dotPadding: Dp = 2.dp,
     dotColor: Color = Theme.colors.onPrimary,
-    animationDelay: Int = Theme.speed.slow ,
+    animationDelay: Int = Theme.speed.slow,
     initialAlpha: Float = 0.38f,
 ) {
 

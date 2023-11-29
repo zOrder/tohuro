@@ -1,4 +1,4 @@
-package ui.composable
+package com.zorder.tohuro.ui.composable
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
@@ -33,8 +33,8 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import ui.theme.Theme
-import ui.theme.Theme.speed
+import com.zorder.tohuro.ui.theme.Theme
+import com.zorder.tohuro.ui.theme.Theme.speed
 
 @Composable
 fun TheNavigationBar(

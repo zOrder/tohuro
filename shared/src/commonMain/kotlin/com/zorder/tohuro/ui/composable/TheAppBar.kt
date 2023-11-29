@@ -1,4 +1,4 @@
-package ui.composable
+package com.zorder.tohuro.ui.composable
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -12,9 +12,9 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.ExperimentalResourceApi
-import ui.modifier.noRippleEffect
-import ui.theme.Theme.colors
-import ui.theme.Theme.typography
+import com.zorder.tohuro.ui.modifier.noRippleEffect
+import com.zorder.tohuro.ui.theme.Theme.colors
+import com.zorder.tohuro.ui.theme.Theme.typography
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalResourceApi::class)
 @Composable
