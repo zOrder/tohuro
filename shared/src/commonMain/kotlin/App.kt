@@ -16,6 +16,7 @@ import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 //import androidx.compose.material.MaterialTheme
@@ -33,6 +34,7 @@ import dev.gitlive.firebase.Firebase
 import dev.gitlive.firebase.firestore.firestore
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
+import ui.composable.BpAppBar
 import ui.composable.THButton
 import ui.composable.TheCheckBox
 import ui.composable.ThOutlinedButton
@@ -72,6 +74,13 @@ fun App() {
             }
 
             Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+
+                BpAppBar(
+                    title = "AppBar",
+                    onNavigateUp = {},
+                    painterResource = Icons.Default.ThumbUp
+                )
+
                 THButton(
                     title = greetingText,
                     enabled = true,
