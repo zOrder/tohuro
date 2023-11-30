@@ -1,9 +1,13 @@
 [versions]
 voyager = "1.0.0-rc08"
+koin = "3.4.2"
 
 [libraries]
 voyager-navigator = { group = "cafe.adriel.voyager", name = "voyager-navigator", version.ref = "voyager" }
 voyager-koin = { group = "cafe.adriel.voyager", name = "voyager-koin", version.ref = "voyager" }
 voyager-transitions = { group = "cafe.adriel.voyager", name = "voyager-transitions", version.ref = "voyager" }
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+koin-workmanager = { module = "io.insert-koin:koin-androidx-workmanager", version.ref = "koin" }
 
 [plugins]

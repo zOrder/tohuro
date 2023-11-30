@@ -7,6 +7,7 @@ import com.zorder.tohuro.model.Mood
 import kotlinx.coroutines.launch
 
 class MoodListScreenModel(
+    moodId: String,
     private val moodsRepository: MoodRepository
 ) : StateScreenModel<MoodListScreenModel.State>(State.Init)
 {

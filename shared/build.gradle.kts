@@ -35,6 +35,8 @@ kotlin {
                 implementation(libs.voyager.navigator)
                 implementation(libs.voyager.transitions)
                 implementation(libs.voyager.koin)
+
+                api(libs.koin.core)
             }
         }
         val androidMain by getting {
@@ -42,6 +44,9 @@ kotlin {
                 api("androidx.activity:activity-compose:1.7.2")
                 api("androidx.appcompat:appcompat:1.6.1")
                 api("androidx.core:core-ktx:1.10.1")
+
+                api(libs.koin.android)
+                api(libs.koin.workmanager)
             }
         }
         val iosMain by creating {
