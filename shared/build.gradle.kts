@@ -1,8 +1,11 @@
+@file:Suppress("DSL_SCOPE_VIOLATION")
+
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
     id("org.jetbrains.compose")
     kotlin("plugin.serialization") version "1.9.0"
+    id(libs.plugins.nativecocoapods.get().pluginId)
 }
 
 kotlin {
@@ -17,6 +20,19 @@ kotlin {
             baseName = "shared"
             isStatic = true
         }
+    }
+
+    cocoapods {
+        version = "1.0"
+        summary = "Some description for a Kotlin/Native module"
+        homepage = "https://zorder.com"
+        podfile = project.file("../iosApp/Podfile")
+        framework {
+            baseName = "shared"
+            isStatic = true
+            export("com.mohamedrejeb.calf:calf-ui:0.2.0")
+        }
+        extraSpecAttributes["resource"] = "'build/cocoapods/framework/shared.framework/*.bundle'"
     }
 
     sourceSets {

@@ -1,6 +1,7 @@
 [versions]
 voyager = "1.0.0-rc08"
 koin = "3.4.2"
+kotlin = "1.9.20-RC"
 
 [libraries]
 voyager-navigator = { group = "cafe.adriel.voyager", name = "voyager-navigator", version.ref = "voyager" }
@@ -11,3 +12,4 @@ koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-workmanager = { module = "io.insert-koin:koin-androidx-workmanager", version.ref = "koin" }
 
 [plugins]
+nativecocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }

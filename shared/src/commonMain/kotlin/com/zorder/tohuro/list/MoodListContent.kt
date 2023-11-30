@@ -50,7 +50,7 @@ fun MoodListContent(
                     TextButton({
 
                     }) {
-                        Text("See more info about ${mood.name}")
+                        Text("The mood is ${mood.name}")
                     }
                 }
             }

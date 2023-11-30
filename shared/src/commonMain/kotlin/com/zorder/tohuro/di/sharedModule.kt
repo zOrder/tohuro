@@ -18,6 +18,6 @@ fun initKoin(appDeclaration: KoinAppDeclaration = {}) = startKoin {
 
 val commonModule = module {
     singleOf(::MoodRepository)
-    factory { (id: String) -> MoodListScreenModel(id, moodsRepository = get()) }
+//    factory { (id: String) -> MoodListScreenModel(id, moodsRepository = get()) }
     factoryOf(::MoodListScreenModel)
 }

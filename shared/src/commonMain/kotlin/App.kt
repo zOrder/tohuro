@@ -30,6 +30,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import cafe.adriel.voyager.navigator.Navigator
+import cafe.adriel.voyager.transitions.SlideTransition
+import com.zorder.tohuro.list.MoodListScreen
 import dev.gitlive.firebase.Firebase
 import dev.gitlive.firebase.firestore.firestore
 import org.jetbrains.compose.resources.ExperimentalResourceApi
@@ -50,131 +53,133 @@ import com.zorder.tohuro.user.User
 @OptIn(ExperimentalResourceApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun App() {
-
-    TohuruTheme {
-        var greetingText by remember { mutableStateOf("Hello, World!") }
-        var showImage by remember { mutableStateOf(false) }
-        var showSnackbar by remember { mutableStateOf(false) }
-
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(Theme.colors.background),
-            verticalArrangement = Arrangement.Bottom
-        ){
-            Column(Modifier.fillMaxWidth()) {
-                var list by remember { mutableStateOf(listOf<User>()) }
-                LaunchedEffect(Unit) {
-                    list = getUsers()
-                }
-                LazyColumn {
-                    items(list) {
-                        UserItem(it)
-                    }
-                }
-            }
-
-            Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-
-                BpAppBar(
-                    title = "AppBar",
-                    onNavigateUp = {},
-                    painterResource = Icons.Default.ThumbUp
-                )
-
-                THButton(
-                    title = greetingText,
-                    enabled = true,
-                    onClick = {
-                        greetingText = "Hello, ${getPlatformName()}"
-                        showImage = !showImage
-                    },
-                    modifier = Modifier.padding(top = 32.dp )
-                )
-                Spacer(modifier = Modifier.size(30.dp))
-                ThOutlinedButton(
-                    title = "Outline",
-                    onClick = {
-                        showSnackbar = !showSnackbar
-                    },
-                )
-                Spacer(modifier = Modifier.size(30.dp))
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceEvenly)
-                {
-                    var checked by remember { mutableStateOf(false) }
-                    var selected by remember { mutableStateOf(false) }
-                    TheCheckBox(
-                        label = "check",
-                        isChecked = checked,
-                        onCheck = { isChecked -> checked = isChecked  },
-                    )
-
-                    TheSwitchButton(
-                        onSwitch = {isChecked -> selected = isChecked},
-                        selected = selected,
-                    )
-                }
-
-                Spacer(modifier = Modifier.size(30.dp))
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceEvenly
-                ) {
-                    var selected by remember { mutableStateOf(false) }
-                    var selected1 by remember { mutableStateOf(true) }
-                    var selected2 by remember { mutableStateOf(true) }
-                    TheChip(
-                        label = "Click me",
-                        onClick = { isSelected -> selected = isSelected },
-                        isSelected = selected,
-                        painter = Icons.Default.CheckCircle
-                    )
-                    TheChip(
-                        label = "Click me",
-                        onClick = { isSelected -> selected1 = isSelected },
-                        isSelected = selected1,
-                        painter = Icons.Default.ArrowForward
-                    )
-                    TheChip(
-                        label = "Click me",
-                        onClick = { isSelected -> selected2 = isSelected },
-                        isSelected = selected2,
-                        painter = Icons.Default.Star
-                    )
-                }
-
-                AnimatedVisibility(showImage) {
-                    Image(
-                        painterResource("compose-multiplatform.xml"),
-                        null
-                    )
-                }
-            }
-
-            BottomNavigationBarPreview()
-
-
-            TheSnackBar(
-                icon = Icons.Default.Star,
-                iconBackgroundColor = Theme.colors.warningContainer,
-                iconTint = Theme.colors.warning,
-                isVisible = showSnackbar,
-//                modifier = Modifier.padding(bottom = getNavigationBarPadding().calculateBottomPadding())
-//                    .align(Alignment.BottomCenter)
-            ) {
-                Text(
-                    text = "AHOI",
-                    style = Theme.typography.body.copy(color = Theme.colors.contentPrimary),
-                )
-            }
-        }
+    Navigator(MoodListScreen()){ navigator ->
+        SlideTransition(navigator)
     }
+//    TohuruTheme {
+//        var greetingText by remember { mutableStateOf("Hello, World!") }
+//        var showImage by remember { mutableStateOf(false) }
+//        var showSnackbar by remember { mutableStateOf(false) }
+//
+//        Column(
+//            modifier = Modifier
+//                .fillMaxSize()
+//                .background(Theme.colors.background),
+//            verticalArrangement = Arrangement.Bottom
+//        ){
+//            Column(Modifier.fillMaxWidth()) {
+//                var list by remember { mutableStateOf(listOf<User>()) }
+//                LaunchedEffect(Unit) {
+//                    list = getUsers()
+//                }
+//                LazyColumn {
+//                    items(list) {
+//                        UserItem(it)
+//                    }
+//                }
+//            }
+//
+//            Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+//
+//                BpAppBar(
+//                    title = "AppBar",
+//                    onNavigateUp = {},
+//                    painterResource = Icons.Default.ThumbUp
+//                )
+//
+//                THButton(
+//                    title = greetingText,
+//                    enabled = true,
+//                    onClick = {
+//                        greetingText = "Hello, ${getPlatformName()}"
+//                        showImage = !showImage
+//                    },
+//                    modifier = Modifier.padding(top = 32.dp )
+//                )
+//                Spacer(modifier = Modifier.size(30.dp))
+//                ThOutlinedButton(
+//                    title = "Outline",
+//                    onClick = {
+//                        showSnackbar = !showSnackbar
+//                    },
+//                )
+//                Spacer(modifier = Modifier.size(30.dp))
+//
+//                Row(
+//                    modifier = Modifier.fillMaxWidth(),
+//                    verticalAlignment = Alignment.CenterVertically,
+//                    horizontalArrangement = Arrangement.SpaceEvenly)
+//                {
+//                    var checked by remember { mutableStateOf(false) }
+//                    var selected by remember { mutableStateOf(false) }
+//                    TheCheckBox(
+//                        label = "check",
+//                        isChecked = checked,
+//                        onCheck = { isChecked -> checked = isChecked  },
+//                    )
+//
+//                    TheSwitchButton(
+//                        onSwitch = {isChecked -> selected = isChecked},
+//                        selected = selected,
+//                    )
+//                }
+//
+//                Spacer(modifier = Modifier.size(30.dp))
+//
+//                Row(
+//                    modifier = Modifier.fillMaxWidth(),
+//                    verticalAlignment = Alignment.CenterVertically,
+//                    horizontalArrangement = Arrangement.SpaceEvenly
+//                ) {
+//                    var selected by remember { mutableStateOf(false) }
+//                    var selected1 by remember { mutableStateOf(true) }
+//                    var selected2 by remember { mutableStateOf(true) }
+//                    TheChip(
+//                        label = "Click me",
+//                        onClick = { isSelected -> selected = isSelected },
+//                        isSelected = selected,
+//                        painter = Icons.Default.CheckCircle
+//                    )
+//                    TheChip(
+//                        label = "Click me",
+//                        onClick = { isSelected -> selected1 = isSelected },
+//                        isSelected = selected1,
+//                        painter = Icons.Default.ArrowForward
+//                    )
+//                    TheChip(
+//                        label = "Click me",
+//                        onClick = { isSelected -> selected2 = isSelected },
+//                        isSelected = selected2,
+//                        painter = Icons.Default.Star
+//                    )
+//                }
+//
+//                AnimatedVisibility(showImage) {
+//                    Image(
+//                        painterResource("compose-multiplatform.xml"),
+//                        null
+//                    )
+//                }
+//            }
+//
+//            BottomNavigationBarPreview()
+//
+//
+//            TheSnackBar(
+//                icon = Icons.Default.Star,
+//                iconBackgroundColor = Theme.colors.warningContainer,
+//                iconTint = Theme.colors.warning,
+//                isVisible = showSnackbar,
+////                modifier = Modifier.padding(bottom = getNavigationBarPadding().calculateBottomPadding())
+////                    .align(Alignment.BottomCenter)
+//            ) {
+//                Text(
+//                    text = "AHOI",
+//                    style = Theme.typography.body.copy(color = Theme.colors.contentPrimary),
+//                )
+//            }
+//        }
+//    }
 }
 
 expect fun getPlatformName(): String

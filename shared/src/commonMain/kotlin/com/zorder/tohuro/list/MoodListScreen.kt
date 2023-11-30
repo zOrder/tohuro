@@ -4,9 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.koin.getScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import com.zorder.tohuro.di.getScreenModel
 
 internal class MoodListScreen :Screen{
     @Composable
@@ -19,5 +19,4 @@ internal class MoodListScreen :Screen{
             MoodListContent((state as MoodListScreenModel.State.Result).moods)
         }
     }
-
 }
