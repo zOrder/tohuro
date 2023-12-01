@@ -6,8 +6,8 @@ import shared
 struct iOSApp: App {
     
     init(){
-       FirebaseApp.configure()
-       SharedModuleKt.doInitKoin()
+        FirebaseApp.configure()
+        
      }
     
 	var body: some Scene {
