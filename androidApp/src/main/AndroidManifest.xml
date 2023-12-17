@@ -7,7 +7,7 @@
     <uses-permission android:name="com.google.android.gms.permission.AD_ID" tools:node="remove"/>
 
     <application
-        android:name="com.lduboscq.appkickstarter.KickstarterApplication"
+        android:name="com.lduboscq.tohuro.KickstarterApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -16,7 +16,7 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
         <activity
-            android:name="com.lduboscq.appkickstarter.MainActivity"
+            android:name="com.lduboscq.tohuro.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
