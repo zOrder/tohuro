@@ -1,43 +1,58 @@
+@file:Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    kotlin("multiplatform")
-    id("com.android.application")
-    id("org.jetbrains.compose")
-    id("com.google.gms.google-services")
+    alias(libs.plugins.multiplatform)
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.jetbrains.compose)
 }
 
 kotlin {
     androidTarget()
     sourceSets {
-        val androidMain by getting {
+        androidMain {
             dependencies {
-                implementation(project(":shared"))
+                implementation(projects.shared)
+                implementation(libs.appcompat)
+                implementation(libs.activity.compose)
+                implementation(libs.revenuecat)
+                implementation(libs.kmm.viewmodel)
             }
         }
     }
 }
 
-dependencies {
-    implementation("com.google.firebase:firebase-common-ktx:20.3.3")
-}
-
 android {
-    compileSdk = (findProperty("android.compileSdk") as String).toInt()
-    namespace = "com.zorder.tohuru"
-
-    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
-
+    namespace = "com.lduboscq.appkickstarter.androidapp"
+    compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
-        applicationId = "com.zorder.tohuru"
-        minSdk = (findProperty("android.minSdk") as String).toInt()
-        targetSdk = (findProperty("android.targetSdk") as String).toInt()
+        applicationId = "com.lduboscq.appkickstarter.android"
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
     }
+
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
+
     kotlin {
-        jvmToolchain(17)
+        jvmToolchain(11)
     }
+
+    buildTypes {
+        release {
+            //isDebuggable = true
+            isMinifyEnabled = true
+            //  R8
+            // proguard = false
+            isShrinkResources = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+    }
+
+    sourceSets["main"].manifest.srcFile("src/main/AndroidManifest.xml")
 }

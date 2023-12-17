@@ -1,75 +1,156 @@
+@file:Suppress("DSL_SCOPE_VIOLATION")
+
+import dev.icerock.gradle.tasks.GenerateMultiplatformResourcesTask
+
 plugins {
-    kotlin("multiplatform")
-    id("com.android.library")
-    id("org.jetbrains.compose")
-    kotlin("plugin.serialization") version "1.9.0"
+    alias(libs.plugins.multiplatform)
+    id(libs.plugins.nativecocoapods.get().pluginId)
+    alias(libs.plugins.serialization)
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.jetbrains.compose)
+    alias(libs.plugins.sqldelight)
+
+    id("dev.icerock.mobile.multiplatform-resources").version(libs.versions.moko.resources)
 }
+
+version = "1.0-SNAPSHOT"
 
 kotlin {
     androidTarget()
 
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach { iosTarget ->
-        iosTarget.binaries.framework {
+    applyDefaultHierarchyTemplate()
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+
+    cocoapods {
+        summary = "Shared code for the sample"
+        homepage = "https://appkickstarter.com"
+        ios.deploymentTarget = "14.1"
+        podfile = project.file("../iosApp/Podfile")
+        framework {
             baseName = "shared"
             isStatic = true
+
+            export("com.mohamedrejeb.calf:calf-ui:0.2.0")
         }
+        extraSpecAttributes["resource"] = "'build/cocoapods/framework/shared.framework/*.bundle'"
     }
 
     sourceSets {
-        val commonMain by getting {
+        commonMain {
             dependencies {
+                // remote
+                implementation(libs.ktor.core)
+                implementation(libs.ktor.serialization.json)
+                implementation(libs.ktor.content.negociation)
+                implementation(libs.kotlinx.serialization.json)
+
+                // local datas
+                api(libs.multiplatform.settings)
+                implementation(libs.multiplatform.settings.coroutines)
+
+                // logs
+                api(libs.napier)
+
+                // ui
                 implementation(compose.runtime)
                 implementation(compose.foundation)
+                implementation(compose.material)
                 implementation(compose.material3)
-                @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
-                implementation(compose.components.resources)
-                implementation("dev.gitlive:firebase-firestore:1.8.1")
-                implementation("dev.gitlive:firebase-common:1.8.1")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
+                implementation(compose.materialIconsExtended)
+                api(libs.image.loader)
+                implementation(libs.moko.resources)
+                implementation(libs.moko.resources.compose)
+                implementation(libs.voyager.navigator)
+                implementation(libs.voyager.transitions)
+                implementation(libs.voyager.koin)
+
+                // dates
+                api(libs.kotlinx.datetime)
+
+                api(libs.koin.core)
+
+                implementation(libs.coroutines.extensions)
+
+                // workaround fix youtrack KT-41821
+                implementation("org.jetbrains.kotlinx:atomicfu:0.20.2")
+
+                api(libs.calf.ui)
+                implementation(libs.calf.filepicker)
             }
         }
-        val androidMain by getting {
+
+        androidMain {
             dependencies {
-                api("androidx.activity:activity-compose:1.7.2")
-                api("androidx.appcompat:appcompat:1.6.1")
-                api("androidx.core:core-ktx:1.10.1")
+                implementation(libs.appcompat)
+                implementation(libs.core.ktx)
+                implementation(libs.ktor.client.okhttp)
+                api(libs.koin.android)
+                api(libs.koin.workmanager)
+
+                implementation(libs.sqldelight.android.driver)
+
+                // Accompanist
+                implementation(libs.accompanist.systemuicontroller)
             }
         }
-        val iosMain by creating {
-            dependsOn(commonMain)
+        iosMain {
+            dependencies {
+                implementation(libs.ktor.client.darwin)
+                implementation(libs.ktor.client.ios)
+                implementation(libs.sqldelight.native.driver)
+            }
         }
-        val iosX64Main by getting {
-            dependsOn(iosMain)
-        }
-        val iosArm64Main by getting {
-            dependsOn(iosMain)
-        }
-        val iosSimulatorArm64Main by getting {
-            dependsOn(iosMain)
-        }
+        iosTest { dependencies {} }
     }
 }
 
 android {
-    compileSdk = (findProperty("android.compileSdk") as String).toInt()
-    namespace = "com.zorder.tohuru.common"
+    namespace = "com.lduboscq.appkickstarter.shared"
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
-    sourceSets["main"].res.srcDirs("src/androidMain/res")
+    sourceSets["main"].res.srcDirs("src/androidMain/res", "src/commonMain/resources")
     sourceSets["main"].resources.srcDirs("src/commonMain/resources")
+    sourceSets["main"].java.srcDirs("build/generated/moko/androidMain/src") // temp fix for https://github.com/icerockdev/moko-resources/issues/531 to be removed when issue is fixed
+
+    buildFeatures {
+        buildConfig = true
+    }
 
     defaultConfig {
-        minSdk = (findProperty("android.minSdk") as String).toInt()
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
     }
+
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
+
     kotlin {
-        jvmToolchain(17)
+        jvmToolchain(11)
     }
 }
+
+multiplatformResources {
+    multiplatformResourcesPackage = "com.appkickstarter.shared"
+}
+
+sqldelight {
+    databases {
+        create("Database") {
+            packageName.set("com.lduboscq.appkickstarter")
+            //dialect("app.cash.sqldelight:mysql-dialect:2.0.0-rc01")
+            schemaOutputDirectory.set(file("src/commonMain/sqldelight/databases"))
+        }
+    }
+}
+
+val generateSourcesTasks = tasks.withType<GenerateMultiplatformResourcesTask>()
+
+tasks.matching { it.name.endsWith("SourcesJar", ignoreCase = true) }
+    .configureEach {
+        dependsOn(generateSourcesTasks)
+    }
